@@ -17,9 +17,7 @@ RUN mkdir -p /opt && \
 	rm /opt/$SOLR.tgz && \
 	mv /opt/$SOLR /opt/solr
 
-RUN ls -la /opt/solr/server/solr
 COPY cores/ /opt/solr/server/solr/
-RUN ls -la /opt/solr/server/solr
 
 RUN chown -R $SOLR_USER:$SOLR_USER /opt/solr
 
