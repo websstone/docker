@@ -15,8 +15,13 @@ RUN mkdir -p /opt && \
 	wget -nv --output-document=/opt/$SOLR.tgz http://www.us.apache.org/dist/lucene/solr/$SOLR_VERSION/$SOLR.tgz && \
 	tar -C /opt --extract --file /opt/$SOLR.tgz && \
 	rm /opt/$SOLR.tgz && \
-	mv /opt/$SOLR /opt/solr && \
-	chown -R $SOLR_USER:$SOLR_USER /opt/solr 
+	mv /opt/$SOLR /opt/solr
+
+RUN ls -la /opt/solr/server/solr
+COPY cores/ /opt/solr/server/solr/
+RUN ls -la /opt/solr/server/solr
+
+RUN chown -R $SOLR_USER:$SOLR_USER /opt/solr
 
 EXPOSE 8983
 WORKDIR /opt/solr
