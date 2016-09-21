@@ -1,0 +1,40 @@
+publish:
+    image: aem-publish
+    ports:
+        - "4503:4503"
+    links:
+        - solr-master
+        - solr-slave
+        - dispatcher
+
+author:
+    image: aem-author
+    ports:
+        - "4502:4502"
+    links:
+        - publish
+        - solr-master
+        - solr-slave
+
+dispatcher:
+    image: aem-dispatcher
+    ports:
+        - "80:80"
+    links:
+        - publish
+
+solr-master:
+    image: solr-master
+    ports:
+        - "8983:8983"
+
+solr-slave:
+    image: solr-master
+    ports:
+        - "8984:8984"
+
+sonar:
+    image: sonarqube
+    ports:
+        - "9000:9000"
+        - "9092:9092"
